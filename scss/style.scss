@@ -1,0 +1,472 @@
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;700&display=swap');
+
+p{
+  font-family: 'Maven Pro', sans-serif; // Adjust if you need a specific weight (e.g., Black or Bold)
+  font-size: 16px;
+  line-height: 1;
+  color:#7c7c7c;
+}
+// Variables for common paddings and dimensions
+$max-width: 1500px;
+$header-width: 956px;
+$content-width: 956px;
+$left-padding: 272px;
+$right-padding: 272px;
+
+// Breakpoints for responsive adjustments
+$breakpoint-lg: 1200px;
+$breakpoint-md: 992px;
+$breakpoint-sm: 768px;
+$breakpoint-xs: 576px;
+
+$header-logo-height: 47px;
+$logo-hamburger-height: 40px;
+$logo-bbb-height: 75px;
+
+// Dimensions for header top overlapping boxes
+$rect-width: 255px; // Each rectangle's width
+$rect-height: 34px; // Each rectangle's height
+$container-height: 39px; // Height of the header-top container
+$overlap: 52px; // Overlap amount between the two boxes
+
+// Calculate total width for the container holding both boxes.
+// Total width = phone-box width + (quote-box width - overlap)
+$total-box-width: $rect-width + ($rect-width - $overlap); // 255 + (255 - 52) = 458px
+
+// Page container
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media(min-width: $max-width) {
+    padding-left: $left-padding;
+    padding-right: $right-padding;
+  }
+
+  @media(max-width: $max-width) {
+    padding-left: calc((100vw - $content-width)/2);
+    padding-right: calc((100vw - $content-width)/2);
+  }
+
+  @media(max-width: 996px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.page-container {
+  max-width: 1500px;
+  /* Limit the width to 1500px */
+  margin: 0 auto;
+  /* Centers the container horizontally */
+}
+
+// Header styles
+.header {
+  width: 956px;
+  height: 89px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+
+  @media(max-width: $header-width) {
+    width: 100%;
+  }
+
+  .header-logo-left {
+    display: flex;
+    flex: 1;
+    padding-right: 19px;
+
+    @media(max-width: 441px) {
+      height: calc($header-logo-height * 0.8)
+    }
+  }
+
+  // Middle section
+  .header-middle {
+    display: flex;
+    flex-direction: column;
+
+    @media(max-width: 992px) {
+      align-items: flex-end;
+      height: $header-logo-height;
+    }
+    @media(max-width: 441px) {
+      height: calc($header-logo-height * 0.8)
+    }
+
+
+    // Header middle top: contains the overlapping boxes, aligned to the right
+    .header-middle-top {
+      height: 39px;
+      display: flex;
+
+      @media(max-width: $breakpoint-md) {
+        display: none; // Hide on medium and larger screens
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: flex-end; // Right-align the boxes
+      }
+
+      // Container for the two overlapping boxes:
+      .header-rectangles {
+        position: relative;
+        width: $total-box-width; // 458px calculated width
+        height: $container-height;
+
+        // Gray phone box with custom clip-path (only bottom-left corner rounded)
+        .phone-box {
+          width: $rect-width;
+          height: $rect-height;
+          background-color: #efefef;
+          padding: 0 52px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end; // Align content to the right
+          color: #818181; // Phone number text color
+          font-weight: 700; // Phone number font-weight
+          border-bottom-left-radius: 52px;
+        }
+
+        .quote-box {
+          height: $rect-height;
+          background-color: #00bae9;
+          padding: 0 52px;
+          position: absolute;
+          top: 0;
+          left: calc(#{$rect-width} - #{$overlap}); // left: 255px - 52px = 203px
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end; // Align content to the right
+          color: #fff; // Text color remains white
+          font-weight: 700; // Get A Free Quote text is bolder
+          border-bottom-left-radius: 52px;
+          border-bottom-right-radius: 52px;
+        }
+      }
+    }
+
+    @media(max-width: 441px) {
+      .navbar-toggler .navbar-toggler-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    // Header middle bottom: contains the Hamburger navigation menu area
+    .header-middle-bottom {
+      height: 50px; // 89px total header height minus 39px header-top
+
+      @media(max-width: 441px) {
+        height: calc($header-logo-height * 0.8)
+      }
+    }
+
+  }
+
+  // Right logo section: takes up remaining space
+  .header-logo-right {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 9px;
+
+    @media(max-width: 441px) {
+      height: $logo-bbb-height * 0.8;
+    }
+
+  }
+}
+
+.header-menu {
+  li.nav-item {
+    >.nav-link {
+      font-family: "Maven Pro", sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      text-transform: uppercase;
+      color: #949494;
+      position: relative;
+      padding-right: 13px;
+    }
+
+    .nav-link.active {
+      color: #00bae9;
+      font-weight: 700;
+    }
+
+    .nav-link:hover {
+      color: #00bae9;
+    }
+  }
+
+  /* Add the square pseudo-element only for nav items except the last one */
+  li.nav-item:not(:last-child)>.nav-link::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    /* Position at the right edge */
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 4px;
+    height: 4px;
+    background-color: #949494;
+    @media (max-width: 991px) {
+      display: none; // Hide on mobile screens
+    }
+  }
+  li.nav-item>.nav-link::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    /* Position at the right edge */
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 4px;
+    height: 4px;
+    background-color: #efefefcc;
+    @media (min-width: 991px) {
+      display: none; // Hide on mobile screens
+    }
+  }
+}
+
+// Variables
+$primary-color: #00bae9;
+$navbar-dark-color: rgba(255, 255, 255, 0.9);
+$navbar-dark-hover-color: #ffffff;
+$navbar-bg: $primary-color;
+$breakpoint-md: 768px;
+
+// Mobile menu
+@media (max-width: 991px) {
+  .navbar>.container-fluid{
+    justify-content: flex-end;
+  }
+  .navbar-collapse {
+    background-color: $navbar-bg;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    z-index: 1;
+    
+    .navbar-nav {
+      .nav-item {
+        margin: 0;
+        
+        .nav-link {
+          color: $navbar-dark-color;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          padding-left:23px;
+          
+          &:hover {
+            color: $navbar-dark-hover-color;
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+          
+          &.active {
+            color: $navbar-dark-hover-color;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Variables for hero dimensions and typography
+$hero-width: $max-width;
+$hero-height: 576px;
+$canvas-width: 552px;
+$canvas-height: 352px;
+$canvas-top: 120px;
+$hero-bg: url("/img/hero-1.jpg");
+
+$hero-title-height: 70px;
+$hero-title-margin: 34px 37px 26px;
+$hero-title-weight: 900;
+
+$hero-text-margin: 0 37px 28px;
+$hero-text-size: 16px;
+
+$hero-button-width: 212px;
+$hero-button-height: 52px;
+
+$slider-indicator-width: 17px;
+$slider-indicator-height: 15px;
+$slider-indicator-gap: 8px;
+$slider-bottom: 25px;
+
+.hero {
+  position: relative;
+  width: $hero-width;
+  height: $hero-height;
+  background-image: $hero-bg;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  @media(max-width:1500px){
+    width:100vw;
+  }
+
+  .hero-canvas {
+    position: relative;
+    margin-top: $canvas-top;
+    width: $canvas-width;
+    height: $canvas-height;
+    background-color: rgba(0, 186, 233, 0.65); // Semi-transparent blue
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    @media(max-width: $breakpoint-sm){
+      width:100%;
+    }
+
+    .hero-title {
+      margin: $hero-title-margin;
+      font-family: "Maven Pro Black", sans-serif;
+      font-size: 44.5px;
+      font-weight: $hero-title-weight;
+      font-kerning: normal;
+      line-height: 0.9;
+      color: #ffffffCC;
+    }
+
+    .hero-text {
+      margin: $hero-text-margin;
+      font-family: "Maven Pro", sans-serif;
+      font-size: $hero-text-size;
+      color: #fefefe;
+      text-overflow: ellipsis;
+      text-align: justify;
+      overflow-wrap: break-word;
+      overflow: hidden;
+
+    }
+
+    .hero-button {
+      display: block;
+      margin: 0 37px 28px;
+      width: $hero-button-width;
+      height: $hero-button-height;
+      background-color: rgba(0, 186, 233, 0.65);;
+      border: none;
+      font-family: "Maven Pro Bold", sans-serif;
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+      /* Only top-left and bottom-right corners rounded */
+      border-top-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .slider-indicators {
+    position: absolute;
+    bottom: $slider-bottom;
+    width: 100%;
+    text-align: center;
+
+    .indicator {
+      display: inline-block;
+      width: $slider-indicator-width;
+      height: $slider-indicator-height;
+      margin: 0 4px; // 8px gap total between indicators
+      background-color: #ffffff00;
+      border: 1px solid #efefef80;
+
+      &.active {
+        background-color: #00bae980;
+        border: 1px solid #00bae9;
+      }
+    }
+  }
+}
+
+.about-us{
+  position: relative;
+  width: $hero-width;
+  height: $hero-height;
+  background-image: radial-gradient(circle at top left, #eee 2px, transparent 2px);
+  background-size: 4px 4px;
+  @media(max-width:1500px){
+    width:100vw;
+  }
+  .about-us-item.p-4{
+    padding-top:15px!important;
+    padding-bottom:15px!important;
+  }
+  .about-us-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Maven Pro", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color:#00bae9;
+    flex-grow:1;
+  }
+  .about-us-text{
+    color:#7c7c7c;
+    font-family: "Maven Pro", sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    font-kerning: normal;
+    flex-grow:1;
+  }
+  .about-us-content-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Maven Pro', sans-serif; // Adjust if you need a specific weight (e.g., Black or Bold)
+    font-size: 1.5rem;
+    color:#7c7c7c;
+    padding-left: 0;
+    padding-right: 0;
+  
+    // These pseudo-elements draw the line on either side of the title text.
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #ccc; // Light gray line; adjust color if needed
+      
+    }
+    &::before{
+      margin-right: 20px; // Gap between the text and the lines
+    }
+    &::after{
+      margin-left: 20px; // Gap between the text and the lines
+    }
+    .container .about-us-content-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Maven Pro', sans-serif; // Adjust if you need a specific weight (e.g., Black or Bold)
+      font-size: 11px;
+      line-height: 1;
+      font-kerning: normal;
+      color:#7c7c7c;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .btn{
+    color:#7c7c7c;
+    font-family: "Maven Pro", sans-serif;
+    background-color: rgba(255, 255, 255, 1); // Semi-transparent blue
+    border-top-right-radius: 0px;
+    border-top-left-radius: 27px;
+    border-bottom-right-radius: 27px;
+    border-bottom-left-radius: 0px;
+    border: 2px solid #818181;
+  }
+}

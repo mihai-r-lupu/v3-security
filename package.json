@@ -1,0 +1,24 @@
+{
+    "name": "v3-security",
+    "version": "1.0.0",
+    "scripts": {
+        "build-css": "sass --watch scss:css",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mihai-r-lupu/v3-security.git"
+    },
+    "bugs": {
+        "url": "https://github.com/mihai-r-lupu/v3-security/issues"
+    },
+    "homepage": "https://github.com/mihai-r-lupu/v3-security#readme",
+    "description": "",
+    "devDependencies": {
+        "sass": "^1.86.3"
+    }
+}
